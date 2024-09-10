@@ -21,33 +21,33 @@ const Task = ({ task, onUpdate, onDelete, onAddSubtask }) => {
   };
 
   return (
-    <div style={{ marginLeft: (task.level || 0) * 20, paddingLeft: 10 }}>
+    <div className={`pl-2 ${`ml-${(task.level || 0) * 5}`}`}>
       <div className='flex gap-6 items-center'>
         <div>
-        <span onClick={() => setIsExpanded(!isExpanded)} style={{ cursor: 'pointer', fontWeight: 'bold' }}>
-          {isExpanded ? '▼' : '►'} {/* Icône pour montrer ou cacher les sous-tâches */}
-        </span>
-        {isEditing ? (
-          <input
-            type="text"
-            value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)}
-            onBlur={handleUpdate}
-            autoFocus
-          />
-        ) : (
-          <span onDoubleClick={() => setIsEditing(true)}>{task.title}</span>
-        )}
+          <span onClick={() => setIsExpanded(!isExpanded)} className='cursor-pointer font-bold'>
+            {isExpanded ? '▼' : '►'} {/* Icône pour montrer ou cacher les sous-tâches */}
+          </span>
+          {isEditing ? (
+            <input
+              type="text"
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+              onBlur={handleUpdate}
+              autoFocus
+            />
+          ) : (
+            <span onDoubleClick={() => setIsEditing(true)}>{task.title}</span>
+          )}
         </div>
-<div className='flex gap-2 text-sm'>
-<button onClick={() => onDelete(task.id)} className='text-gray-500'><FaTrash/></button>
-<button onClick={() => setIsEditing(true)} className='text-gray-500'><FaPen/></button>
-</div>
+        <div className='flex gap-2 text-sm'>
+          <button onClick={() => onDelete(task.id)} className='text-gray-500 hover:text-red-600 transition'><FaTrash /></button>
+          <button onClick={() => setIsEditing(true)} className='text-gray-500 hover:text-blue-600 transition'><FaPen /></button>
+        </div>
       </div>
 
       {/* Formulaire pour ajouter une sous-tâche */}
       {isExpanded && (
-        <div style={{ marginLeft: 20 }}>
+        <div className='ml-5'>
           <input
             type="text"
             value={subtaskTitle}
@@ -55,7 +55,7 @@ const Task = ({ task, onUpdate, onDelete, onAddSubtask }) => {
             placeholder="Add a subtask"
             className='outline-none'
           />
-          <button onClick={handleAddSubtask} className='text-gray-500'><FaPlus/></button>
+          <button onClick={handleAddSubtask} className='text-gray-500'><FaPlus /></button>
         </div>
       )}
 
